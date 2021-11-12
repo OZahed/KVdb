@@ -74,6 +74,7 @@ func (s *Store) Delete(_ context.Context, k string) error {
 }
 
 func (s *Store) Clean(_ context.Context) error {
+	// added read lock to prevent dirty reads with goigng to check the expiry
 	// Cleaning up process
 	for idx, key := range s.m {
 		if !key.IsValid() {
@@ -102,7 +103,6 @@ func (s *Store) Shot(_ context.Context, path string) error {
 	}
 	return ioutil.WriteFile(path, marsh, os.FileMode(fmode))
 }
-
 func NewStore() Store {
 	m := make(map[entity.Key]entity.Value)
 	return Store{

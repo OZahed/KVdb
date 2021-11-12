@@ -22,8 +22,8 @@ func GetHandler(rg repo.Getter) echo.HandlerFunc {
 		value, err := rg.Get(context.TODO(), key)
 		if err == entity.ErrNotFound {
 			return c.JSON(http.StatusNotFound, HandErr{Msg: "Value does not exists", Code: 404})
-		} else if err != nil {
-			return c.JSON(http.StatusInternalServerError, HandErr{Msg: err.Error(), Code: 500})
+		} else if err == entity.ErrExpired {
+			return c.JSON(http.StatusOK, HandErr{Msg: err.Error(), Code: 200})
 		}
 		return c.JSON(http.StatusOK, value)
 	}

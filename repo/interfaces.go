@@ -13,10 +13,6 @@ type Getter interface {
 	Get(context.Context, string) (interface{}, error)
 }
 
-type Updater interface {
-	Update(context.Context, string, interface{}, time.Time) error
-}
-
 type Deleter interface {
 	Delete(context.Context, string) error
 }
