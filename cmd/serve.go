@@ -17,7 +17,7 @@ var serveCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Listen and serve On port: 8080")
 		mux := api.GetMux()
-		log.Fatal(http.ListenAndServe(":8080", &mux))
+		log.Fatal(http.ListenAndServe(":8080", mux))
 	},
 }
 
